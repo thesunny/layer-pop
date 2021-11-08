@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/layer-pop",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
@@ -12,6 +12,8 @@
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/node": "^14.14.3",
+    "@types/react": "^17.0.34",
+    "@types/react-dom": "^17.0.11",
     "jest": "^27.0.6",
     "next": "^12.0.3",
     "react": "^17.0.2",
@@ -23,6 +25,8 @@
   "scripts": {
     "build": "rm -rf ./.dist/ && tsc -p tsconfig.ts-build.json && echo 'Finished Building'",
     "prepublish": "yarn build && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
+    "-- next": "#",
+    "start:dev": "next dev",
     "--- test": "#",
     "test:watch": "jest --watch"
   }
