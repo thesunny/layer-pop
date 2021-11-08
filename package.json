@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/layer-pop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
@@ -13,6 +13,9 @@
     "@types/jest": "^26.0.23",
     "@types/node": "^14.14.3",
     "jest": "^27.0.6",
+    "next": "^12.0.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "ts-jest": "^27.0.3",
     "type-fest": "^2.5.2",
     "typescript": "^4.4.3"
