@@ -45,12 +45,25 @@ function verticalPosition(
   position: VerticalPosition,
   spacing: number
 ) {
-  console.log({ position, spacing })
   switch (position) {
     case "above":
       return destRect.top - srcRect.height - spacing
     case "below":
       return destRect.bottom + spacing
+  }
+}
+
+function horizontalPosition(
+  srcRect: DOMRect,
+  destRect: DOMRect,
+  position: HorizontalPosition,
+  spacing: number
+) {
+  switch (position) {
+    case "left":
+      return destRect.left - srcRect.width - spacing
+    case "right":
+      return destRect.right + spacing
   }
 }
 
@@ -70,6 +83,22 @@ function horizontalAlign(
   }
 }
 
+function verticalAlign(
+  srcRect: DOMRect,
+  destRect: DOMRect,
+  align: VerticalAlign
+): number {
+  switch (align) {
+    case "top":
+      return destRect.top
+    case "middle":
+      const middle = destRect.top + destRect.height / 2
+      return middle - srcRect.height / 2
+    case "bottom":
+      return destRect.top + destRect.height - srcRect.height
+  }
+}
+
 export type Where =
   | { position: VerticalPosition; align: HorizontalAlign }
   | {
@@ -83,13 +112,15 @@ function calculateWhere(
   where: Where,
   spacing: number
 ) {
-  console.log({ where, spacing })
   if (where.position === "above" || where.position === "below") {
     const y = verticalPosition(srcRect, destRect, where.position, spacing)
     const x = horizontalAlign(srcRect, destRect, where.align)
     return { x, y }
-  } else {
-    return { x: 0, y: 0 }
+  } else if (where.position === "left" || where.position === "right") {
+    return {
+      x: horizontalPosition(srcRect, destRect, where.position, spacing),
+      y: verticalAlign(srcRect, destRect, where.align),
+    }
   }
 }
 
@@ -102,9 +133,7 @@ export function position({
   dest,
   spacing = 0,
   ...where
-}: // position = "below",
-// align = "left",
-{
+}: {
   srcRef: React.MutableRefObject<HTMLElement | null>
   dest: HTMLElement
   spacing?: number

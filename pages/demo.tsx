@@ -13,6 +13,7 @@ import {
   HorizontalAlign,
   VerticalPosition,
   Where,
+  Layers,
 } from "~/src"
 import { Bootstrap } from "~/components/bootstrap"
 
@@ -86,83 +87,92 @@ function App() {
       </div>
       <h4>Position Below</h4>
       <div className="mb-4">
-        <button
-          className="btn btn-primary me-1"
-          onClick={(e) =>
-            layers.open(1000, ActiveLayer, {
-              dest: e.currentTarget,
-              position: "below",
-              align: "left",
-            } as const)
-          }
-        >
+        <ActiveButton layers={layers} position="below" align="left">
           Align Left
-        </button>
-        <button
-          className="btn btn-primary me-1"
-          onClick={(e) =>
-            layers.open(1000, ActiveLayer, {
-              dest: e.currentTarget,
-              position: "below",
-              align: "center",
-            } as const)
-          }
-        >
+        </ActiveButton>
+        <ActiveButton layers={layers} position="below" align="center">
           Align Center
-        </button>
-        <button
-          className="btn btn-primary me-1"
-          onClick={(e) =>
-            layers.open(1000, ActiveLayer, {
-              dest: e.currentTarget,
-              position: "below",
-              align: "right",
-            } as const)
-          }
-        >
+        </ActiveButton>
+        <ActiveButton layers={layers} position="below" align="right">
           Align Right
-        </button>
+        </ActiveButton>
       </div>
       <h4>Position Above</h4>
       <div className="mb-4">
-        <button
-          className="btn btn-primary me-1"
-          onClick={(e) =>
-            layers.open(1000, ActiveLayer, {
-              dest: e.currentTarget,
-              position: "above",
-              align: "left",
-            } as const)
-          }
-        >
+        <ActiveButton layers={layers} position="above" align="left">
           Align Left
-        </button>
-        <button
-          className="btn btn-primary me-1"
-          onClick={(e) =>
-            layers.open(1000, ActiveLayer, {
-              dest: e.currentTarget,
-              position: "above",
-              align: "center",
-            } as const)
-          }
-        >
+        </ActiveButton>
+        <ActiveButton layers={layers} position="above" align="center">
           Align Center
-        </button>
-        <button
-          className="btn btn-primary me-1"
-          onClick={(e) =>
-            layers.open(1000, ActiveLayer, {
-              dest: e.currentTarget,
-              position: "above",
-              align: "right",
-            } as const)
-          }
-        >
+        </ActiveButton>
+        <ActiveButton layers={layers} position="above" align="right">
           Align Right
-        </button>
+        </ActiveButton>
+      </div>
+      <div style={{ display: "flex" }}>
+        <div className="me-5">
+          <h4>Position Right</h4>
+          <div className="mb-4">
+            <div className="mb-1">
+              <ActiveButton layers={layers} position="right" align="top">
+                Align Top
+              </ActiveButton>
+            </div>
+            <div className="mb-1">
+              <ActiveButton layers={layers} position="right" align="middle">
+                Align Middle
+              </ActiveButton>
+            </div>
+            <div className="mb-1">
+              <ActiveButton layers={layers} position="right" align="bottom">
+                Align Bottom
+              </ActiveButton>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4>Position left</h4>
+          <div className="mb-4">
+            <div className="mb-1">
+              <ActiveButton layers={layers} position="left" align="top">
+                Align Top
+              </ActiveButton>
+            </div>
+            <div className="mb-1">
+              <ActiveButton layers={layers} position="left" align="middle">
+                Align Middle
+              </ActiveButton>
+            </div>
+            <div className="mb-1">
+              <ActiveButton layers={layers} position="left" align="bottom">
+                Align Bottom
+              </ActiveButton>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  )
+}
+
+function ActiveButton({
+  children,
+  layers,
+  ...where
+}: { children: React.ReactNode; layers: Layers } & Where) {
+  return (
+    <button
+      className="btn btn-primary me-1"
+      onClick={(e) =>
+        layers.open(1000, ActiveLayer, {
+          dest: e.currentTarget,
+          ...where,
+        } as const)
+      }
+      style={{ width: 120 }}
+    >
+      {children}
+    </button>
   )
 }
 
@@ -195,7 +205,7 @@ function ActiveLayer({
   const srcRef = useRef<HTMLDivElement>(null)
   const layer = useInLayer()
   const style = useActiveStyle(
-    Position({ srcRef, dest, spacing: 2, ...where }),
+    Position({ srcRef, dest, spacing: 8, ...where }),
     SlideDownTransition(),
     []
   )
