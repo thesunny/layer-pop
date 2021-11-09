@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/layer-pop",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
@@ -8,12 +8,18 @@
   "files": [
     ".dist/**/*"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "lodash.throttle": "^4.1.1",
+    "shallowequal": "^1.1.0"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.23",
+    "@types/lodash": "^4.14.176",
     "@types/node": "^14.14.3",
     "@types/react": "^17.0.34",
     "@types/react-dom": "^17.0.11",
+    "@types/shallowequal": "^1.1.1",
     "jest": "^27.0.6",
     "next": "^12.0.3",
     "react": "^17.0.2",
