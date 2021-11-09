@@ -1,4 +1,4 @@
-import { Layer } from "~/src/layers"
+import { InLayer } from "~/src/layers"
 import React, { useRef } from "react"
 
 // React.RefObject<HTMLDivElement>
@@ -10,7 +10,7 @@ export const Alert = React.forwardRef(function Alert(
     style,
   }: {
     message: string
-    layer: Layer
+    layer: InLayer
     style: React.CSSProperties
   },
   ref: React.ForwardedRef<HTMLDivElement>

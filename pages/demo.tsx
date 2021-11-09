@@ -2,7 +2,7 @@ import React, { FunctionComponent, useCallback, useRef } from "react"
 import { Alert } from "~/components/alert"
 import {
   LayersProvider,
-  PositionBelow,
+  Position,
   SlideDownTransition,
   useLayers,
   useLayerEscape,
@@ -10,6 +10,9 @@ import {
   useActiveStyle,
   useTransition,
   usePosition,
+  HorizontalAlign,
+  VerticalPosition,
+  Where,
 } from "~/src"
 import { Bootstrap } from "~/components/bootstrap"
 
@@ -63,7 +66,9 @@ function App() {
           onClick={(e) =>
             layers.open(1000, ActiveLayer, {
               dest: e.currentTarget,
-            })
+              position: "below",
+              align: "left",
+            } as const)
           }
         >
           Alert with ActiveLayer
@@ -79,6 +84,84 @@ function App() {
           Alert without Escape
         </button>
       </div>
+      <h4>Position Below</h4>
+      <div className="mb-4">
+        <button
+          className="btn btn-primary me-1"
+          onClick={(e) =>
+            layers.open(1000, ActiveLayer, {
+              dest: e.currentTarget,
+              position: "below",
+              align: "left",
+            } as const)
+          }
+        >
+          Align Left
+        </button>
+        <button
+          className="btn btn-primary me-1"
+          onClick={(e) =>
+            layers.open(1000, ActiveLayer, {
+              dest: e.currentTarget,
+              position: "below",
+              align: "center",
+            } as const)
+          }
+        >
+          Align Center
+        </button>
+        <button
+          className="btn btn-primary me-1"
+          onClick={(e) =>
+            layers.open(1000, ActiveLayer, {
+              dest: e.currentTarget,
+              position: "below",
+              align: "right",
+            } as const)
+          }
+        >
+          Align Right
+        </button>
+      </div>
+      <h4>Position Above</h4>
+      <div className="mb-4">
+        <button
+          className="btn btn-primary me-1"
+          onClick={(e) =>
+            layers.open(1000, ActiveLayer, {
+              dest: e.currentTarget,
+              position: "above",
+              align: "left",
+            } as const)
+          }
+        >
+          Align Left
+        </button>
+        <button
+          className="btn btn-primary me-1"
+          onClick={(e) =>
+            layers.open(1000, ActiveLayer, {
+              dest: e.currentTarget,
+              position: "above",
+              align: "center",
+            } as const)
+          }
+        >
+          Align Center
+        </button>
+        <button
+          className="btn btn-primary me-1"
+          onClick={(e) =>
+            layers.open(1000, ActiveLayer, {
+              dest: e.currentTarget,
+              position: "above",
+              align: "right",
+            } as const)
+          }
+        >
+          Align Right
+        </button>
+      </div>
     </div>
   )
 }
@@ -87,7 +170,10 @@ function PositionLayer({ dest }: { dest: HTMLElement }) {
   useLayerEscape()
   const srcRef = useRef<HTMLDivElement>(null)
   const layer = useInLayer()
-  const style = usePosition(PositionBelow({ srcRef, dest }), [])
+  const style = usePosition(
+    Position({ srcRef, dest, position: "below", align: "left" }),
+    []
+  )
   return <Alert ref={srcRef} layer={layer} style={style} message="Positioned" />
 }
 
@@ -99,12 +185,17 @@ function TransitionLayer({ dest }: { dest: HTMLElement }) {
   return <Alert ref={srcRef} layer={layer} style={style} message="Transition" />
 }
 
-function ActiveLayer({ dest }: { dest: HTMLElement }) {
+function ActiveLayer({
+  dest,
+  ...where
+}: {
+  dest: HTMLElement
+} & Where) {
   useLayerEscape()
   const srcRef = useRef<HTMLDivElement>(null)
   const layer = useInLayer()
   const style = useActiveStyle(
-    PositionBelow({ srcRef, dest, spacing: 2 }),
+    Position({ srcRef, dest, spacing: 2, ...where }),
     SlideDownTransition(),
     []
   )
@@ -117,7 +208,7 @@ function ActiveLayerWithoutEscape({ dest }: { dest: HTMLElement }) {
   const srcRef = useRef<HTMLDivElement>(null)
   const layer = useInLayer()
   const style = useActiveStyle(
-    PositionBelow({ srcRef, dest, spacing: 2 }),
+    Position({ srcRef, dest, spacing: 2, position: "below", align: "left" }),
     SlideDownTransition(),
     []
   )

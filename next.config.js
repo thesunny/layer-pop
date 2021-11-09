@@ -2,5 +2,5 @@
  * @type {import('next').NextConfig}
  */
 module.exports = {
-  tsconfigPath: "tsconfig.next.json",
+  tsconfigPath: "./tsconfig.next.json",
 }
