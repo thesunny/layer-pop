@@ -1,11 +1,31 @@
 import { cssStyle } from "."
 
-export function slideDownTransition(initial: boolean) {
+export type Direction = "down" | "up" | "left" | "right"
+
+function slideInTransition(initial: boolean, direction: Direction) {
   if (initial) {
-    return cssStyle({
-      opacity: "0",
-      transform: "translate(0, -8px)",
-    })
+    switch (direction) {
+      case "up":
+        return cssStyle({
+          opacity: "0",
+          transform: "translate(0, 8px)",
+        })
+      case "down":
+        return cssStyle({
+          opacity: "0",
+          transform: "translate(0, -8px)",
+        })
+      case "left":
+        return cssStyle({
+          opacity: "0",
+          transform: "translate(8px, 0)",
+        })
+      case "right":
+        return cssStyle({
+          opacity: "0",
+          transform: "translate(-8px, 0)",
+        })
+    }
   }
   return cssStyle({
     opacity: "1",
@@ -14,6 +34,8 @@ export function slideDownTransition(initial: boolean) {
   })
 }
 
-export function SlideDownTransition() {
-  return slideDownTransition
+export function SlideInTransition({ direction }: { direction: Direction }) {
+  return function (initial: boolean) {
+    return slideInTransition(initial, direction)
+  }
 }

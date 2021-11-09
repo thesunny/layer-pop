@@ -3,7 +3,7 @@ import { Alert } from "~/components/alert"
 import {
   LayersProvider,
   Position,
-  SlideDownTransition,
+  SlideInTransition,
   useLayers,
   useLayerEscape,
   useInLayer,
@@ -14,6 +14,7 @@ import {
   VerticalPosition,
   Where,
   Layers,
+  Direction,
 } from "~/src"
 import { Bootstrap } from "~/components/bootstrap"
 
@@ -69,6 +70,7 @@ function App() {
               dest: e.currentTarget,
               position: "below",
               align: "left",
+              direction: "down",
             } as const)
           }
         >
@@ -87,25 +89,55 @@ function App() {
       </div>
       <h4>Position Below</h4>
       <div className="mb-4">
-        <ActiveButton layers={layers} position="below" align="left">
+        <ActiveButton
+          layers={layers}
+          position="below"
+          align="left"
+          direction="down"
+        >
           Align Left
         </ActiveButton>
-        <ActiveButton layers={layers} position="below" align="center">
+        <ActiveButton
+          layers={layers}
+          position="below"
+          align="center"
+          direction="down"
+        >
           Align Center
         </ActiveButton>
-        <ActiveButton layers={layers} position="below" align="right">
+        <ActiveButton
+          layers={layers}
+          position="below"
+          align="right"
+          direction="down"
+        >
           Align Right
         </ActiveButton>
       </div>
       <h4>Position Above</h4>
       <div className="mb-4">
-        <ActiveButton layers={layers} position="above" align="left">
+        <ActiveButton
+          layers={layers}
+          position="above"
+          align="left"
+          direction="up"
+        >
           Align Left
         </ActiveButton>
-        <ActiveButton layers={layers} position="above" align="center">
+        <ActiveButton
+          layers={layers}
+          position="above"
+          align="center"
+          direction="up"
+        >
           Align Center
         </ActiveButton>
-        <ActiveButton layers={layers} position="above" align="right">
+        <ActiveButton
+          layers={layers}
+          position="above"
+          align="right"
+          direction="up"
+        >
           Align Right
         </ActiveButton>
       </div>
@@ -114,17 +146,32 @@ function App() {
           <h4>Position Right</h4>
           <div className="mb-4">
             <div className="mb-1">
-              <ActiveButton layers={layers} position="right" align="top">
+              <ActiveButton
+                layers={layers}
+                position="right"
+                align="top"
+                direction="right"
+              >
                 Align Top
               </ActiveButton>
             </div>
             <div className="mb-1">
-              <ActiveButton layers={layers} position="right" align="middle">
+              <ActiveButton
+                layers={layers}
+                position="right"
+                align="middle"
+                direction="right"
+              >
                 Align Middle
               </ActiveButton>
             </div>
             <div className="mb-1">
-              <ActiveButton layers={layers} position="right" align="bottom">
+              <ActiveButton
+                layers={layers}
+                position="right"
+                align="bottom"
+                direction="right"
+              >
                 Align Bottom
               </ActiveButton>
             </div>
@@ -134,17 +181,32 @@ function App() {
           <h4>Position left</h4>
           <div className="mb-4">
             <div className="mb-1">
-              <ActiveButton layers={layers} position="left" align="top">
+              <ActiveButton
+                layers={layers}
+                position="left"
+                align="top"
+                direction="left"
+              >
                 Align Top
               </ActiveButton>
             </div>
             <div className="mb-1">
-              <ActiveButton layers={layers} position="left" align="middle">
+              <ActiveButton
+                layers={layers}
+                position="left"
+                align="middle"
+                direction="left"
+              >
                 Align Middle
               </ActiveButton>
             </div>
             <div className="mb-1">
-              <ActiveButton layers={layers} position="left" align="bottom">
+              <ActiveButton
+                layers={layers}
+                position="left"
+                align="bottom"
+                direction="left"
+              >
                 Align Bottom
               </ActiveButton>
             </div>
@@ -158,14 +220,20 @@ function App() {
 function ActiveButton({
   children,
   layers,
+  direction,
   ...where
-}: { children: React.ReactNode; layers: Layers } & Where) {
+}: {
+  children: React.ReactNode
+  layers: Layers
+  direction: Direction
+} & Where) {
   return (
     <button
       className="btn btn-primary me-1"
       onClick={(e) =>
         layers.open(1000, ActiveLayer, {
           dest: e.currentTarget,
+          direction,
           ...where,
         } as const)
       }
@@ -191,22 +259,24 @@ function TransitionLayer({ dest }: { dest: HTMLElement }) {
   useLayerEscape()
   const srcRef = useRef<HTMLDivElement>(null)
   const layer = useInLayer()
-  const style = useTransition(SlideDownTransition())
+  const style = useTransition(SlideInTransition({ direction: "down" }))
   return <Alert ref={srcRef} layer={layer} style={style} message="Transition" />
 }
 
 function ActiveLayer({
   dest,
+  direction,
   ...where
 }: {
   dest: HTMLElement
+  direction: Direction
 } & Where) {
   useLayerEscape()
   const srcRef = useRef<HTMLDivElement>(null)
   const layer = useInLayer()
   const style = useActiveStyle(
     Position({ srcRef, dest, spacing: 8, ...where }),
-    SlideDownTransition(),
+    SlideInTransition({ direction }),
     []
   )
   return (
@@ -219,7 +289,7 @@ function ActiveLayerWithoutEscape({ dest }: { dest: HTMLElement }) {
   const layer = useInLayer()
   const style = useActiveStyle(
     Position({ srcRef, dest, spacing: 2, position: "below", align: "left" }),
-    SlideDownTransition(),
+    SlideInTransition({ direction: "down" }),
     []
   )
   return (
