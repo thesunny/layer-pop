@@ -1,3 +1,12 @@
+/**
+ * exhaustiveness type check for switch or if/else statements
+ *
+ * <https://stackoverflow.com/questions/39419170/how-do-i-check-that-a-switch-block-is-exhaustive-in-typescript>
+ */
+export function assertUnreachable(x: never): never {
+  throw new Error("This should be unreachable code")
+}
+
 export function cssStyle<T extends React.CSSProperties>(value: T) {
   return value
 }
@@ -122,6 +131,7 @@ function calculateWhere(
       y: verticalAlign(srcRect, destRect, where.align),
     }
   }
+  assertUnreachable(where.position)
 }
 
 /**
