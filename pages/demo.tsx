@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useRef } from "react"
+import React, { useRef } from "react"
 import { Alert } from "~/components/alert"
 import {
   LayersProvider,
@@ -10,8 +10,6 @@ import {
   useActiveStyle,
   useTransition,
   usePosition,
-  HorizontalAlign,
-  VerticalPosition,
   Where,
   Layers,
   Direction,

@@ -145,7 +145,7 @@ export function position({
   ...where
 }: {
   srcRef: React.MutableRefObject<HTMLElement | null>
-  dest: HTMLElement
+  dest: Element
   spacing?: number
 } & Where) {
   const style = cssStyle({
@@ -155,7 +155,12 @@ export function position({
     top: 0,
   })
 
-  if (srcRef.current === null) return style
+  if (srcRef == null) {
+    throw new Error(
+      `srcRef is undefined. This probably means you forgot to assign the ref to an Element.`
+    )
+  }
+  if (srcRef.current == null) return style
 
   const srcRect = srcRef.current.getBoundingClientRect()
   const destRect = dest.getBoundingClientRect()
