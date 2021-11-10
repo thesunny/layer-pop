@@ -1,13 +1,13 @@
 {
   "name": "layer-pop",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
   "types": ".dist/src/index.d.ts",
   "exports": {
-    "./": "./dist/src",
-    "./tooltip": "./dist/lib/tooltip"
+    "./": "./.dist/src",
+    "./tooltip": "./.dist/lib/tooltip"
   },
   "files": [
     ".dist/**/*"
