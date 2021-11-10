@@ -5,6 +5,9 @@
   "license": "MIT",
   "main": ".dist/src/index.js",
   "types": ".dist/src/index.d.ts",
+  "exports": {
+    "./tooltip": "./dist/lib/tooltip"
+  },
   "files": [
     ".dist/**/*"
   ],
