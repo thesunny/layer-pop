@@ -157,10 +157,23 @@ export function position({
 
   if (srcRef == null) {
     throw new Error(
-      `srcRef is undefined. This probably means you forgot to assign the ref to an Element.`
+      `srcRef is undefined but expected it to contain a ref object`
     )
   }
-  if (srcRef.current == null) return style
+  if (srcRef.current == null) {
+    setTimeout(() => {
+      if (srcRef.current == null) {
+        throw new Error(
+          [
+            `srcRef.current is null after 50ms.`,
+            `Expected srcRef.current to initially not be set but should bet set after the DOM renders.`,
+            `Most like you forgot to assign the ref to an Element.`,
+          ].join("\n")
+        )
+      }
+    }, 50)
+    return style
+  }
 
   const srcRect = srcRef.current.getBoundingClientRect()
   const destRect = dest.getBoundingClientRect()

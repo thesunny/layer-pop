@@ -25,12 +25,6 @@ Layer Pop makes it easy exists because I could not find any other libraries that
 ## Minimal Example
 
 ```jsx
-function AppContainer() {
-  return <LayersProvider>
-    <App>
-  </LayersProvider>
-}
-
 function App() {
   const layers = useLayers()
 
@@ -48,10 +42,23 @@ function App() {
   </div>
 }
 
-function Alert({title}) {
-  return <div style={{position: 'absolute', left: 100, top: 100, width: 640, border: '1px solid black', padding: '1em'}}>
+function Alert({ title }: { title: string} ) {
+  return <div style={{
+    position: 'absolute',
+    left: 100,
+    top: 100,
+    width: 640,
+    border: '1px solid black',
+    padding: '1em'
+    }}>
     <h1>{title}</h1>
   </div>
+}
+
+function AppContainer() {
+  return <LayersProvider>
+    <App>
+  </LayersProvider>
 }
 ```
 
@@ -72,9 +79,27 @@ https://ux.stackexchange.com/questions/90336/whats-the-difference-between-a-moda
 
 https://uxplanet.org/best-practices-for-modals-overlays-dialog-windows-c00c66cddd8c
 
-# Libraries
+# `usePosition`
 
-Layer Pop consists of three features, each of which can be used on its own making them simple to understand, but together make for a powerful and flexible library.
+The `usePosition` hook is used inside the layer (modal, alert, popup or tooltip) to position it. It includes several useful presets for positioning above, below or to the left or right.
 
-- `layers`: Allows you to open and close components on different layers. For example, you may have a layer for modal dialogs with a layer on top of that for menu components and a layer on top of that for tooltips. Your tooltips, menu and modals can all exist at the same time (think of opening a modal, with a menu open, and a flyout tooltip on hover); however, layers takes care of only allowing one to exist at a time (e.g. you will never want two tooltips, or two open menus, or two modals at the same time).
-- `positioning`: All
+```tsx
+function Alert({
+  srcRef,
+}: {
+  srcRef: React.MutableRefObject<HTMLElement | null>
+}) {
+  const style = usePosition(() => {
+    /**
+     * Position below `srcRef`
+     */
+    return {
+      position: "absolute",
+      left: srcRef.current.left,
+      top: srcRef.current.bottom,
+    }
+  }, [])
+
+  return <div style={style}></div>
+}
+```

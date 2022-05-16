@@ -7,7 +7,6 @@
   "types": ".dist/src/index.d.ts",
   "exports": {
     ".": "./.dist/src/index.js",
-    "./": "./.dist/src",
     "./tooltip": "./.dist/lib/tooltip"
   },
   "files": [

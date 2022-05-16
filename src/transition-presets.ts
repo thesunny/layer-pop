@@ -8,7 +8,6 @@ function slideInTransition(
   duration: number = 200,
   distance: number = 8
 ) {
-  console.log(duration)
   if (initial) {
     switch (direction) {
       case "up":

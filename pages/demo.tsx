@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useCallback, useRef } from "react"
 import { Alert } from "~/components/alert"
 import {
   LayersProvider,
@@ -211,7 +211,38 @@ function App() {
           </div>
         </div>
       </div>
+      <div>
+        <h4>Errors</h4>
+        <div className="mb-1">
+          <NoSrcRefButton />
+        </div>
+      </div>
     </div>
+  )
+}
+
+function NoSrcRefLayer({ dest }: { dest: HTMLElement }) {
+  useLayerEscape()
+  const srcRef = useRef<HTMLDivElement>(null)
+  const layer = useInLayer()
+  const style = useActiveStyle(
+    Position({ srcRef, dest, spacing: 8, position: "below", align: "center" }),
+    SlideInTransition({ direction: "down" }),
+    []
+  )
+  return <Alert layer={layer} style={style} message="Active Style" />
+}
+
+function NoSrcRefButton() {
+  const layers = useLayers()
+  const openLayer = useCallback(
+    (e) => layers.open(1000, NoSrcRefLayer, { dest: e.currentTarget }),
+    []
+  )
+  return (
+    <button className="btn btn-danger" onClick={openLayer}>
+      Forgot to assign srcRef
+    </button>
   )
 }
 
