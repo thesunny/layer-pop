@@ -10,12 +10,12 @@ import { usePosition, useTransition } from "."
  */
 
 export function useActiveStyle<
-  P extends Record<string, any>,
-  T extends Record<string, any>
+  P extends Record<string, unknown>,
+  T extends Record<string, unknown>
 >(
   positionFn: () => P,
   transitionFn: (initial: boolean) => T,
-  dependencies: any[]
+  dependencies: unknown[]
 ): P & T {
   const positionStyle = usePosition(positionFn, dependencies)
   const transitionStyle = useTransition(transitionFn)

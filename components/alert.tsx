@@ -1,7 +1,5 @@
 import { InLayer } from "~/src/layers"
-import React, { useRef } from "react"
-
-// React.RefObject<HTMLDivElement>
+import React from "react"
 
 export const Alert = React.forwardRef(function Alert(
   {
@@ -15,8 +13,6 @@ export const Alert = React.forwardRef(function Alert(
   },
   ref: React.ForwardedRef<HTMLDivElement>
 ) {
-  const srcRef = useRef<HTMLDivElement>(null)
-
   return (
     <div
       className="modal"
@@ -47,13 +43,6 @@ export const Alert = React.forwardRef(function Alert(
             >
               Close
             </button>
-            {/* <button
-              type="button"
-              className="btn btn-primary"
-              onClick={changeMessage}
-            >
-              Change Message
-            </button> */}
             <button type="button" className="btn btn-primary">
               Save changes
             </button>

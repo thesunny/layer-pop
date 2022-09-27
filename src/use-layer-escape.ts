@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useInLayer, InLayer } from "."
+import { useInLayer } from "."
 
 export function useLayerEscape() {
   const layer = useInLayer()

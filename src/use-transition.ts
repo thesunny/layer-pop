@@ -1,5 +1,5 @@
-import { useEffect, useLayoutEffect, useState } from "react"
-export function useTransition<T extends Record<string, any>>(
+import { useEffect, useState } from "react"
+export function useTransition<T extends Record<string, unknown>>(
   fn: (initial: boolean) => T
 ) {
   const [style, setStyle] = useState<T>(fn(true))

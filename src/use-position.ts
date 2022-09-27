@@ -10,9 +10,9 @@ import throttle from "lodash/throttle"
  * - As an object that contains style objects (for example, tooltip needs to style the arrow and the bubble)
  */
 
-export function usePosition<T extends Record<string, any>>(
+export function usePosition<T extends Record<string, unknown>>(
   fn: () => T,
-  dependencies: any[]
+  dependencies: unknown[]
 ): T {
   const [style, setStyle] = useState<T>(fn())
   const reposition = throttle(

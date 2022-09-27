@@ -27,7 +27,7 @@ export enum ZIndex {
  * When we add the Layer data, we want to make sure that the `props` match the
  * `Commponent`'s props.
  */
-type TypedLayerData<P extends Record<string, any>> = {
+type TypedLayerData<P extends Record<string, unknown>> = {
   Component: React.FunctionComponent<P>
   props: P
   zIndex: number
@@ -42,7 +42,7 @@ type TypedLayerData<P extends Record<string, any>> = {
  * This is safe so long as we don't do obviously unsmart things like using
  * the props from one layer with the Component of another.
  */
-type UntypedLayerData = TypedLayerData<Record<string, any>>
+type UntypedLayerData = TypedLayerData<Record<string, unknown>>
 
 /**
  * All the layers data.
@@ -149,7 +149,7 @@ export function useLayers(): Layers {
   /**
    * Open a layer at a specific zIndex
    */
-  function open<T extends Record<string, any>>(
+  function open<T extends Record<string, unknown>>(
     zIndex: number,
     Component: React.FunctionComponent<T>,
     props: T
@@ -175,6 +175,7 @@ export function useLayers(): Layers {
      * Set Modal
      */
     setLayers((layers: LayersData) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const layer: UntypedLayerData = { Component, props, zIndex }
       const nextLayers = { ...layers, [zIndex]: layer }
@@ -200,6 +201,8 @@ export function useLayers(): Layers {
     setLayers({})
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return { open, close, closeAll }
 }
 

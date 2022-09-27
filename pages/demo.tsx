@@ -22,7 +22,7 @@ import { Bootstrap } from "~/components/bootstrap"
  * Usually you will add this once for your entire app, like in the `_app.tsx`
  * file in Next.js.
  */
-export default function () {
+export default function DemoPage() {
   return (
     <LayersProvider>
       <Bootstrap />
@@ -284,6 +284,7 @@ function PositionLayer({ dest }: { dest: HTMLElement }) {
   return <Alert ref={srcRef} layer={layer} style={style} message="Positioned" />
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function TransitionLayer({ dest }: { dest: HTMLElement }) {
   useLayerEscape()
   const srcRef = useRef<HTMLDivElement>(null)

@@ -5,8 +5,8 @@ export type Direction = "down" | "up" | "left" | "right"
 function slideInTransition(
   initial: boolean,
   direction: Direction,
-  duration: number = 200,
-  distance: number = 8
+  duration = 200,
+  distance = 8
 ) {
   if (initial) {
     switch (direction) {

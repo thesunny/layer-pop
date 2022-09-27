@@ -3,6 +3,7 @@
  *
  * <https://stackoverflow.com/questions/39419170/how-do-i-check-that-a-switch-block-is-exhaustive-in-typescript>
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function assertUnreachable(x: never): never {
   throw new Error("This should be unreachable code")
 }
@@ -11,7 +12,7 @@ export function cssStyle<T extends React.CSSProperties>(value: T) {
   return value
 }
 
-function positionInViewport<T extends { left: number; top: number }>({
+function positionInViewport({
   src,
   left,
   top,
@@ -84,9 +85,10 @@ function horizontalAlign(
   switch (align) {
     case "left":
       return destRect.left
-    case "center":
+    case "center": {
       const center = destRect.left + destRect.width / 2
       return center - srcRect.width / 2
+    }
     case "right":
       return destRect.left + destRect.width - srcRect.width
   }
@@ -100,9 +102,10 @@ function verticalAlign(
   switch (align) {
     case "top":
       return destRect.top
-    case "middle":
+    case "middle": {
       const middle = destRect.top + destRect.height / 2
       return middle - srcRect.height / 2
+    }
     case "bottom":
       return destRect.top + destRect.height - srcRect.height
   }
